@@ -7,9 +7,40 @@
 <body>
 <h1>Deep Learning for Chinese Word Segmentation and POS Tagging</h1>
 <p>Xiaoqing Zheng, Hanyang Chen and Tianyu Xu</p>
-<p>EMNLP 2013</p>
-<h2>Reference</h2>
-Zheng X, Chen H, Xu T. Deep Learning for Chinese Word Segmentation and POS Tagging[C] //EMNLP. 2013: 647-657. 
-<a href="http://www.aclweb.org/old_anthology/D/D13/D13-1061.pdf">[PDF]</a> 
+<p>EMNLP 2013 <a href="http://www.aclweb.org/old_anthology/D/D13/D13-1061.pdf">[PDF]</a> </p>
+<p>Summarized by Zhengyuan Liu, Master Student of Computer Science, UCLA</p>
+<h3>Introduction and Related Work</h3>
+<p>Over the past few decades, statistical approaches are dominant for Chinese word segmentation (CWS). 
+Statistical methods usually treat CWS as a sequence labeling problem where each character is assigned 
+a label indicating its position in a word, which can be handled with structured machine learning algorithms 
+such as Conditional Random Fields (CRF). However, traditional statistical approaches usually involve a great 
+number of features, which leads to several limitations. For example, the number of features could be too large 
+for practical use and the trained models are prone to overfit on training corpus. Moreover, the effectiveness 
+of features is so critical that feature selection becomes a major factor for the performance of these systems. 
+Since feature selection is mainly based on human ingenuity and linguistic intuition and then trial and error, 
+much time and labor is devoted to task-specific feature engineering. </p>
+<p>In contrast, neural network models are designed to avoid task-specific feature engineering, which first 
+proposed by (Bengio et al., 2003) for a probabilistic language model, and reintroduced by (Collobert et al., 
+2011) for multiple NLP tasks. Following above works, this paper first introduced deep learning to CWS and POS 
+tagging, and used multilayer neural network to extract features from input sentences and then conduct word 
+segmentation and POS tagging. This paper used two methods to train the neural network, i.e. sentence-level 
+log-likelihood and perceptron-style training algorithm. Two kinds of character representations are used, i.e. 
+vectors of random values and character embeddings with more syntactic and semantic information trained by large 
+unlabeled data. This paper achieved close to state-of-the-art performance by using character embeddings trained 
+by large unlabeled data.</p>
+<h3>Conclusion and Future Work</h3>
+<p>This paper applied deep neural network to Chinese word segmentation and POS tagging task, and two methods 
+were used to train the network, i.e. maximum-likelihood and perceptron-style algorithm. This model achieved 
+close to state-of-the-art performance by using character representations pre-trained by large unlabeled data 
+set. Three potential ways may be used to further improve the performance: specific linguistic features, common 
+techniques such as cascading or voting and ad-hoc network architecture for tasks of interest.</p>
+<h3>Reference</h3>
+<p>Bengio Y, Ducharme R, Vincent P, et al. A neural probabilistic language model[J]. 
+Journal of machine learning research, 2003, 3(Feb): 1137-1155.</p>
+<p>Collobert R, Weston J, Bottou L, et al. Natural language processing (almost) from scratch[J]. 
+Journal of Machine Learning Research, 2011, 12(Aug): 2493-2537.</p>
+<p>Zheng X, Chen H, Xu T. Deep Learning for Chinese Word Segmentation and POS Tagging[C] 
+//EMNLP. 2013: 647-657. </p>
+
 </body>
 </html>
