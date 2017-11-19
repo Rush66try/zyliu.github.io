@@ -19,11 +19,21 @@ for practical use and the trained models are prone to overfit on training corpus
 of features is so critical that feature selection becomes a major factor for the performance of these systems. 
 Since feature selection is mainly based on human ingenuity and linguistic intuition and then trial and error, 
 much time and labor is devoted to task-specific feature engineering. </p>
-<p>In contrast, neural network models are designed to avoid task-specific feature engineering, which first proposed by (Bengio et al., 2003) for a probabilistic language model, and reintroduced by (Collobert et al., 2011) for multiple NLP tasks. Following above work, this paper first introduced deep learning to CWS and POS tagging, and used multilayer neural network to extract features from input sentences and then conduct word segmentation and POS tagging. This paper used two methods to train the neural network, i.e. sentence-level log-likelihood and perceptron-style training algorithm. Two kinds of character representations are used, i.e. vectors of random values and character embeddings trained by large unlabeled data. This paper achieved close to state-of-the-art performance with less computational cost by using pre-trained character embeddings and perceptron-style training algorithm.</p>
+<p>In contrast, neural network models are designed to avoid task-specific feature engineering, which first proposed by
+ (Bengio et al., 2003) for a probabilistic language model, and reintroduced by (Collobert et al., 2011) for multiple 
+ NLP tasks. Following above work, this paper first introduced deep learning to CWS and POS tagging, and used multilayer 
+ neural network to extract features from input sentences and then conduct word segmentation and POS tagging. This paper 
+ used two methods to train the neural network, i.e. sentence-level log-likelihood and perceptron-style training algorithm. 
+ Two kinds of character representations are used, i.e. vectors of random values and character embeddings trained by large 
+ unlabeled data. This paper achieved close to state-of-the-art performance with less computational cost by using pre-trained 
+ character embeddings and perceptron-style training algorithm.</p>
 <h3>The Neural Network Architecture</h3>
-<p>The neural network architecture proposed in this paper consists multiple layers including feature extraction for each Chinese character and a window of characters, classical neural network layers and a tag inference process based on Viterbi algorithm. </p>
-<p>The first layer maps Chinese characters to feature vectors by a lookup operation of a character embedding matrix M∈R^(d×|D| ), where d is the dimension of the vector (a hyper-parameter) and |D| is size of the dictionary of all characters from the training corpus (Figure 1). These feature vectors are initialized with random values and can be automatically trained by back propagation algorithm, or they can be pre-trained by large unlabeled dataset. 
-</p>
+<p>The neural network architecture proposed in this paper consists multiple layers including feature extraction for each Chinese 
+character and a window of characters, classical neural network layers and a tag inference process based on Viterbi algorithm. </p>
+<p>The first layer maps Chinese characters to feature vectors by a lookup operation of a character embedding matrix M∈R^(d×|D| ), 
+where d is the dimension of the vector (a hyper-parameter) and |D| is size of the dictionary of all characters from the training 
+corpus (Figure 1). These feature vectors are initialized with random values and can be automatically trained by back propagation 
+algorithm, or they can be pre-trained by large unlabeled dataset. </p>
 <div style="text-align:center">
 <img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure1.png" alt="Figure 1"/>
 <p>Figure 1: Mapping characters to feature vectors</p>
@@ -48,12 +58,40 @@ actually the number of hidden units.</p>
 <div style="text-align:center">
 <img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure2.png" alt="Figure 2"/>
 <p>Figure 2: Classical neural network layers</p>
+</div>
+<p>Since we have got the scores for every word with all tags, the next step is tag inference based on Viterbi algorithm 
+(Figure 3). Besides the network output scores for all characters in a sentence, this paper introduced a transition score A_ij  
+for a transition from i-th tag to j-th tag in successive characters, and an initial scores A_0i  for a sentence starting with 
+the i-th tag. Therefore, the score of a sentence c_([1:n])  with a path of tags t_([1:n])  is given by the sum of transition 
+scores and network scores:</p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/3.png" alt="3"/>
+</div>
+<p>The inference of CWS and POS tagging is finding the best tag path by maximizing the sentence score, and Viterbi algorithm 
+is used for this tag inference.</p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure3.png" alt="Figure 3"/>
+<p>Figure 3: Tag Inference</p>
+</div>
 <h3>Conclusion and Future Work</h3>
-<p>This paper applied deep neural network to Chinese word segmentation and POS tagging task, and two methods 
-were used to train the network, i.e. maximum-likelihood and perceptron-style algorithm. This model achieved 
-close to state-of-the-art performance by using character representations pre-trained by large unlabeled data 
-set. Three potential ways may be used to further improve the performance: specific linguistic features, common 
-techniques such as cascading or voting and ad-hoc network architecture for tasks of interest.</p>
+<p>This paper applied deep neural network to Chinese word segmentation and POS tagging task, and two methods were used to train 
+the network, i.e. maximum-likelihood and perceptron-style algorithm. This model achieved close to state-of-the-art performance 
+by using character representations pre-trained by large unlabeled data set. Three potential ways may be used to further improve 
+the performance: specific linguistic features, common techniques such as cascading or voting and ad-hoc network architecture 
+for tasks of interest.</p>
+<h3>Experiments</h3>
+<p>Two NLP tasks are addressed in this paper: Chinese word segmentation (SEG) and joint word segmentation and POS tagging (JWP). 
+For SEG task, the boundary tag set is {B (begin), I (inside), E (end), S (single)}. The label fashion of JWP task directly 
+expands from SEG labels, for example, verb phrases can be labeled by four different tags: ‘B_VP’, ‘I_VP’, ‘E_VP’ and ‘S_VP’, 
+which easily expands the framework for SEG to JWP task. Both sentence-level log-likelihood (SSL) and perceptron style training 
+algorithm (PSA) are implemented in Java to train the neural network. In experiments PSA speeds up the training process with 
+negligible loss in performance and can to be implemented easier.</p>
+<p>Three sets of experiments are conducted. The first experiment is the selection of hyper-parameters (Table 1). This experiment 
+was ran on part of Chinese Treebank 4 (CTB-4). </p>
+<div style="text-align:center">
+<p>Table 1: Hyper-parameters of the network</p>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Table1.png" alt="Table 1"/>
+</div>
 <h3>Reference</h3>
 <p>Bengio Y, Ducharme R, Vincent P, et al. A neural probabilistic language model[J]. 
 Journal of machine learning research, 2003, 3(Feb): 1137-1155.</p>
