@@ -74,11 +74,26 @@ is used for this tag inference.</p>
 <p>Figure 3: Tag Inference</p>
 </div>
 <p>The training process is to determine all the parameters of this network θ=(M,W_2,b_2,W_3,b_3,A) by training data. Two methods are used to train the neural network, first is sentence-level log-likelihood by maximizing likelihood of true path t for all sentences in the training set with respect to θ:</p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/4.png" alt="4"/>
+</div>
 <p>The conditional probability of true path <i>t</i> is given by:</p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/5.png" alt="5"/>
+</div>
 <p>Classical gradient ascent and back propagation algorithm are used to adapt the network parameters until the character embedding layer and maximize the log-likelihood: </p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/6.png" alt="6"/>
+</div>
 <p>where λ is learning rate (a hyper-parameter).</p>
 <p>The second method is a perceptron-style training algorithm, which is proposed by this paper. We define L_θ (t,t'│c)  as the difference between the score of the true tag path t for a sentence c and the output path t’ (i.e. the highest scoring path under current network parameters θ):</p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/7.png" alt="7"/>
+</div>
 <p>If t ≠ t’, then we need to alter network parameters in order to maximize L_θ (t,t'│c), i.e. increase the score of t (f_θ (t_i |i)  and A_(t_(i-1) t_i )), and decrease the score of t’ (f_θ (〖t'〗_i |i)  and A_(t_(i-1) t_i )). Intuitively, we can realize this adjustment by altering the derivatives since derivatives determine the update of parameters. For every character ci where〖 t〗_i≠〖t'〗_i we set:</p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/8.png" alt="8"/>
+</div>
 <p>and then update parameters of the network by gradient ascent and back propagation algorithm with the gradients computed by (8). </p>
 <h3>Experiments</h3>
 <p>Two NLP tasks are addressed in this paper: Chinese word segmentation (SEG) and joint word segmentation and POS tagging (JWP). 
