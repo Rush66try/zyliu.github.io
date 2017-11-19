@@ -24,6 +24,16 @@ much time and labor is devoted to task-specific feature engineering. </p>
 <p>The neural network architecture proposed in this paper consists multiple layers including feature extraction for each Chinese character and a window of characters, classical neural network layers and a tag inference process based on Viterbi algorithm. </p>
 <p>The first layer maps Chinese characters to feature vectors by a lookup operation of a character embedding matrix M∈R^(d×|D| ), where d is the dimension of the vector (a hyper-parameter) and |D| is size of the dictionary of all characters from the training corpus (Figure 1). These feature vectors are initialized with random values and can be automatically trained by back propagation algorithm, or they can be pre-trained by large unlabeled dataset. 
 </p>
+<div style="text-align:center">
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure1.png" alt="Figure 1"/>
+<p>Figure 1: Mapping characters to feature vectors</p>
+</div>
+<p>In order to handle variable length of input sentence, this paper use a window approach to extract information from a character’s neighboring characters. The feature vectors of the central character c_i  and its neighboring characters within the window of size w (a hyper-parameter) are concatenated to form the feature vector of the window, which consist the input of the next neural network layer f_θ^1 (c_i):
+</p>
+<p>The characters with indices exceeding the sentence boundaries are mapped to one of two special symbols, namely ‘start’ and ‘stop’ symbols.
+</p>
+<p>The following layers are classical neural network layers (Figure 2), which consists of two linear transform f_θ^2,f_θ^3  and one non-linear transform g(∙)  (a sigmoid function), mapping input feature vector of the window to a vector of scores for all tags in the tag set T:
+</p>
 <h3>Conclusion and Future Work</h3>
 <p>This paper applied deep neural network to Chinese word segmentation and POS tagging task, and two methods 
 were used to train the network, i.e. maximum-likelihood and perceptron-style algorithm. This model achieved 
