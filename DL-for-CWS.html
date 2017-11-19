@@ -73,12 +73,6 @@ is used for this tag inference.</p>
 <img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure3.png" alt="Figure 3"/>
 <p>Figure 3: Tag Inference</p>
 </div>
-<h3>Conclusion and Future Work</h3>
-<p>This paper applied deep neural network to Chinese word segmentation and POS tagging task, and two methods were used to train 
-the network, i.e. maximum-likelihood and perceptron-style algorithm. This model achieved close to state-of-the-art performance 
-by using character representations pre-trained by large unlabeled data set. Three potential ways may be used to further improve 
-the performance: specific linguistic features, common techniques such as cascading or voting and ad-hoc network architecture 
-for tasks of interest.</p>
 <h3>Experiments</h3>
 <p>Two NLP tasks are addressed in this paper: Chinese word segmentation (SEG) and joint word segmentation and POS tagging (JWP). 
 For SEG task, the boundary tag set is {B (begin), I (inside), E (end), S (single)}. The label fashion of JWP task directly 
@@ -92,6 +86,12 @@ was ran on part of Chinese Treebank 4 (CTB-4). </p>
 <p>Table 1: Hyper-parameters of the network</p>
 <img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Table1.png" alt="Table 1"/>
 </div>
+<h3>Conclusion and Future Work</h3>
+<p>This paper applied deep neural network to Chinese word segmentation and POS tagging task, and two methods were used to train 
+the network, i.e. maximum-likelihood and perceptron-style algorithm. This model achieved close to state-of-the-art performance 
+by using character representations pre-trained by large unlabeled data set. Three potential ways may be used to further improve 
+the performance: specific linguistic features, common techniques such as cascading or voting and ad-hoc network architecture 
+for tasks of interest.</p>
 <h3>Reference</h3>
 <p>Bengio Y, Ducharme R, Vincent P, et al. A neural probabilistic language model[J]. 
 Journal of machine learning research, 2003, 3(Feb): 1137-1155.</p>
