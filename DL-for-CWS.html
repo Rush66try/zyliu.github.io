@@ -43,7 +43,7 @@ character’s neighboring characters. The feature vectors of the central charact
 the window of size w (a hyper-parameter) are concatenated to form the feature vector of the window, which consist the input 
 of the next neural network layer f_θ^1 (c_i):</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/1.png" alt="1"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/formula1.png" alt="Formula 1"/>
 </div>
 <p>The characters with indices exceeding the sentence boundaries are mapped to one of two special symbols, namely 'start' 
 and 'stop' symbols.</p>
@@ -51,7 +51,7 @@ and 'stop' symbols.</p>
 and one non-linear transform g(∙)  (a sigmoid function), mapping input feature vector of the window to a vector of scores for 
 all tags in the tag set T:</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/2.png" alt="2"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/formula2.png" alt="Formula 2"/>
 </div>
 <p>where W_2  ∈R^(H×wd),b_2∈R^H,W_3  ∈R^(|T|×H),b_3∈R^|T|  are the parameters to be trained. The hyper-parameter H is 
 actually the number of hidden units.</p>
@@ -65,7 +65,7 @@ for a transition from i-th tag to j-th tag in successive characters, and an init
 the i-th tag. Therefore, the score of a sentence c_([1:n])  with a path of tags t_([1:n])  is given by the sum of transition 
 scores and network scores:</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/3.png" alt="3"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/formula3.png" alt="Formula 3"/>
 </div>
 <p>The inference of CWS and POS tagging is finding the best tag path by maximizing the sentence score, and Viterbi algorithm 
 is used for this tag inference.</p>
