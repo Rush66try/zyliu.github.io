@@ -35,7 +35,7 @@ where d is the dimension of the vector (a hyper-parameter) and |D| is size of th
 corpus (Figure 1). These feature vectors are initialized with random values and can be automatically trained by back propagation 
 algorithm, or they can be pre-trained by large unlabeled dataset. </p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure1.png" alt="Figure 1"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/images/Figure1.png" alt="Figure 1"/>
 <p>Figure 1: Mapping characters to feature vectors</p>
 </div>
 <p>In order to handle variable length of input sentence, this paper use a window approach to extract information from a 
@@ -56,7 +56,7 @@ all tags in the tag set T:</p>
 <p>where W_2  ∈R^(H×wd),b_2∈R^H,W_3  ∈R^(|T|×H),b_3∈R^|T|  are the parameters to be trained. The hyper-parameter H is 
 actually the number of hidden units.</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure2.png" alt="Figure 2"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/images/Figure2.png" alt="Figure 2"/>
 <p>Figure 2: Classical neural network layers</p>
 </div>
 <p>Since we have got the scores for every word with all tags, the next step is tag inference based on Viterbi algorithm 
@@ -70,29 +70,29 @@ scores and network scores:</p>
 <p>The inference of CWS and POS tagging is finding the best tag path by maximizing the sentence score, and Viterbi algorithm 
 is used for this tag inference.</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Figure3.png" alt="Figure 3"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/images/Figure3.png" alt="Figure 3"/>
 <p>Figure 3: Tag Inference</p>
 </div>
 <p>The training process is to determine all the parameters of this network θ=(M,W_2,b_2,W_3,b_3,A) by training data. Two methods are used to train the neural network, first is sentence-level log-likelihood by maximizing likelihood of true path t for all sentences in the training set with respect to θ:</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/4.png" alt="4"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/4.png" alt="4"/>
 </div>
 <p>The conditional probability of true path <i>t</i> is given by:</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/5.png" alt="5"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/5.png" alt="5"/>
 </div>
 <p>Classical gradient ascent and back propagation algorithm are used to adapt the network parameters until the character embedding layer and maximize the log-likelihood: </p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/6.png" alt="6"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/6.png" alt="6"/>
 </div>
 <p>where λ is learning rate (a hyper-parameter).</p>
 <p>The second method is a perceptron-style training algorithm, which is proposed by this paper. We define L_θ (t,t'│c)  as the difference between the score of the true tag path t for a sentence c and the output path t’ (i.e. the highest scoring path under current network parameters θ):</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/7.png" alt="7"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/7.png" alt="7"/>
 </div>
 <p>If t ≠ t’, then we need to alter network parameters in order to maximize L_θ (t,t'│c), i.e. increase the score of t (f_θ (t_i |i)  and A_(t_(i-1) t_i )), and decrease the score of t’ (f_θ (〖t'〗_i |i)  and A_(t_(i-1) t_i )). Intuitively, we can realize this adjustment by altering the derivatives since derivatives determine the update of parameters. For every character ci where〖 t〗_i≠〖t'〗_i we set:</p>
 <div style="text-align:center">
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/8.png" alt="8"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Formulas/8.png" alt="8"/>
 </div>
 <p>and then update parameters of the network by gradient ascent and back propagation algorithm with the gradients computed by (8). </p>
 <h3>Experiments</h3>
@@ -106,14 +106,14 @@ negligible loss in performance and can to be implemented easier.</p>
 was ran on part of Chinese Treebank 4 (CTB-4). </p>
 <div style="text-align:center">
 <p>Table 1: Hyper-parameters of the network</p>
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Table1.png" alt="Table 1"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/images/Table1.png" alt="Table 1"/>
 </div>
 <p>The second experiment is a closed test without any extra knowledge on Chinese Treebank (CTB) data set from Bakeoff-3 for both 
 SEG and JWP tasks. The aim of this experiment is to compare this neural model with other models in the literature 
 (Results in Table 2).</p>
 <div style="text-align:center">
 <p>Table 2: Comparison of F-scores</p>
-<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/Table2.png" alt="Table 2"/>
+<img src="https://raw.githubusercontent.com/zhengyuan-liu/zhengyuan-liu.github.io/master/images/Table2.png" alt="Table 2"/>
 </div>
 <p>The third experiment uses Sina news corpus (a large unlabeled data set) to train a language model and obtain character embeddings 
 carrying more syntactic and semantic information. These embeddings are used to initialize the character embedding matrix, and the 
