@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <title>ML in NLP Paper Summary</title>
+</head>
+<body>
+	<table width="70%" align="center">
+		<tr><td>
+			<h1>MapReduce: Simplified Data Processing on Large Clusters</h1>
+			<p>Jeffrey Dean and Sanjay Ghemawat</p>
+			<p>OSDI 2004 <a href="https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf">[PDF]</a> </p>
+			<p>Summarized by <a href="https://zhengyuan-liu.github.io">Zhengyuan Liu</a>, Master Student in Computer Science @ UCLA</p>
+			<h3>Introduction</h3>
+			<p>MapReduce is a programming model and an associated implementation for processing and generating large datasets, whose runtime system automatically parallelizes the computation across large-scale clusters of machines, handles machine failures, and schedules inter-machine communication to make efficient use of the network and disks. Prior to our development of MapReduce, hundreds of special-purpose computations were implemented to process large amounts of raw data. The issues of how to parallelize the computation, distribute the data, and handle failures conspire to obscure the original simple computation with large amounts of complex code to deal with these issues. Therefore, MapReduce is designed as a new abstraction that allows programmer to express the simple computations but hides the messy details of parallelization, fault tolerance, data distribution and load balancing in a library. </p>
+			<h3>Programming Model</h3>
+			<p>The computation in MapReduce takes a set of input key/value pairs, and produces a set of output key/value pairs. The computation was expressed as two functions: map and reduce. The map function takes an input pair and produces a set of intermediate key/value pairs. The reduce function accepts an intermediate key I and a set of values for that key. It merges these values together to form a possibly smaller set of values. The intermediate values are supplied to the user’s reduce function via an iterator. </p>
+			<h3>Implementation</h3>
+			<p>Many different implementations are possible, which depends on the environment. The authors describe an implementation targeted to the computing environment in Google, which consists of large clusters of commodity PCs connected together with switched Ethernet. The overall flow of a MapReduce operation is: (1) The MapReduce library in the user program first splits the input files into M pieces and then starts up many copies of the program on a cluster of machines. (2) One of the copies of the program is the master, and the rest are workers which are assigned work by the master. There are M map tasks and R reduce tasks to assign. (3) A worker who is assigned a map task reads the contents of the corresponding input split. It parses key/value pairs out of the input data and passes each pair to the user-defined Map function. (4) When a reduce worker is notified by the master about these locations, it uses remote procedure calls to read the buffered data from the local disks of the map workers. When a reduce worker has read all intermediate data, it sorts it by the intermediate keys. (5) The reduce worker iterates over the sorted intermediate data and for each unique intermediate key, and passes the key and the corresponding set of intermediate values to the user’s Reduce function.</p>
+			<h3>Experiments</h3>
+			<p>The authors measured the performance of MapReduce on two computations running on a large cluster of machines: (1) Grep, which searches through approximately one terabyte of data looking for a particular pattern; (2) Sort, which sorts approximately one terabyte of data.</p>
+			<h3>Conclusion</h3>
+			<p>In conclusion, MapReduce is a simple and powerful interface that enables automatic parallelization and distribution of large-scale computations, which has become one of the most widely used computation model in distributed computation. Many different implementations of MapReduce are possible, which depends on the environment. Therefore, MapReduce model can achieve high performance not only on large clusters of commodity PCs, but also on parallelize computations across multiple cores of the same machine.</p>
+			<h3>Reference</h3>
+			<p> Dean, J. and Ghemawat, S. 2004. MapReduce: Simplified data processing on large clusters. In Proceedings of Operating Systems Design and Implementation (OSDI). San Francisco, CA. 137-150.</p>
+		</td></tr>
+    </table>
+</body>
+</html>
